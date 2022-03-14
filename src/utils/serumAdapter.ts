@@ -28,6 +28,7 @@ class SerumAdapter {
             {},
             this.programAddress
         )
+        return this.market;
     }
     async loadMarketData() {
         this.bids = await this.market.loadBids(connection);
