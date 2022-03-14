@@ -17,6 +17,7 @@ describe('serumAdapter', ()=>{
     test('checks that the object is created',()=>{
         expect(serumAdapter).not.toBeUndefined;
     })
+
     test('market loads',async()=>{
         const market = await serumAdapter.loadMarket();
         expect(market).not.toBeUndefined();

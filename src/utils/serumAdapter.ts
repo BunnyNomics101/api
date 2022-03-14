@@ -22,14 +22,16 @@ class SerumAdapter {
         await this.loadMarketData()
     }
     async loadMarket() {
-        this.market = await Market.load(
+        const market = await Market.load(
             connection,
             this.marketAddress,
             {},
             this.programAddress
-        )
-        return this.market;
+        );
+        this.market = market;
+        return market;
     }
+
     async loadMarketData() {
         this.bids = await this.market.loadBids(connection);
         this.asks = await this.market.loadAsks(connection);
@@ -39,10 +41,13 @@ class SerumAdapter {
     public getMarket() {
         return this.market;
     }
+    
     public getL2bids() {
+        const arrayOfBids : {price: number, size: number}[]= [] ; 
         for (let [price, size] of this.bids.getL2(20)) {
-            console.log(price, size);
+            arrayOfBids.push({price, size})
         }
+        return arrayOfBids; 
     }
     public getFullOrderBookData(){
         for (let order of this.asks) {
