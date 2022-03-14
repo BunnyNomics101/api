@@ -2,7 +2,7 @@ import { Account, Connection, PublicKey } from '@solana/web3.js';
 import { Market } from '@project-serum/serum';
 import { Orderbook } from '@project-serum/serum/lib/market';
 
-const connection = new Connection('https://testnet.solana.com');
+const connection = new Connection('https://api.mainnet-beta.solana.com');
 
 class SerumAdapter {
 
