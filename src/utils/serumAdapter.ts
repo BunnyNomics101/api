@@ -2,6 +2,7 @@ import { Account, Connection, PublicKey } from '@solana/web3.js';
 import { Market } from '@project-serum/serum';
 import { Orderbook } from '@project-serum/serum/lib/market';
 
+
 const connection = new Connection('https://api.mainnet-beta.solana.com');
 
 class SerumAdapter {
@@ -17,10 +18,16 @@ class SerumAdapter {
     }
 
     //loaders
+    async loadAll(){
+        await this.loadMarket();
+        await this.loadMarketData();
+    }
+
     async loadMarketWithData() {
         await this.loadMarket()
         await this.loadMarketData()
     }
+    
     async loadMarket() {
         const market = await Market.load(
             connection,
@@ -41,7 +48,7 @@ class SerumAdapter {
     public getMarket() {
         return this.market;
     }
-    
+
     public getL2bids() {
         const arrayOfBids : {price: number, size: number}[]= [] ; 
         for (let [price, size] of this.bids.getL2(20)) {
@@ -49,15 +56,23 @@ class SerumAdapter {
         }
         return arrayOfBids; 
     }
+
     public getFullOrderBookData(){
+        const arrayOfOrders : {
+            orderId: any, 
+            price : number, 
+            size: number, 
+            side:"buy"|"sell"
+        }[]= []
         for (let order of this.asks) {
-            console.log(
-                order.orderId,
-                order.price,
-                order.size,
-                order.side, // 'buy' or 'sell'
-            );
+            arrayOfOrders.push({
+                orderId: order.orderId,
+                price: order.price,
+                size: order.size,
+                side: order.side, // 'buy' or 'sell'
+            });
         }
+        return arrayOfOrders
     }
 
 }

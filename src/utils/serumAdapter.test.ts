@@ -21,7 +21,24 @@ describe('serumAdapter', ()=>{
     test('market loads',async()=>{
         const market = await serumAdapter.loadMarket();
         expect(market).not.toBeUndefined();
-    },30000)
+    },10000)
 
-    
+    test('market bids load',async()=>{
+
+        await serumAdapter.loadAll();
+        expect(
+            serumAdapter
+                .getL2bids()
+                .length
+        ).toBeGreaterThan(0)
+    },10000)
+
+    test('market orders load',async()=>{
+        await serumAdapter.loadAll();
+        expect(
+            serumAdapter
+                .getL2bids()
+                .length
+        ).toBeGreaterThan(0)
+    },10000)
 })
