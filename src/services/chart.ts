@@ -10,14 +10,11 @@ export const getChartData = async(req:Request, res:Response)=>{
         new PublicKey(marketAddress)
     )
 
-    await serumMarket.loadAll();
-    const data= await serumMarket.getPriceChart(timestamp)
-    
-
-    // const serumMarket= new SerumMarket(); 
-
-
-    res.status(200).send({
-        data
-    })
+    try{
+        await serumMarket.loadAll();
+        const data= await serumMarket.getPriceChart(timestamp)
+        res.status(200).send(data)
+    }catch{
+        res.status(404).send('bad timestamp or market address')
+    }
 }

@@ -103,7 +103,7 @@ class SerumMarket {
             case "3MONTH":
                 fromDate = getFrom(90);
                 break;
-            case "Year":
+            case "YEAR":
                 fromDate = getFrom(316);
                 break;
             default:
