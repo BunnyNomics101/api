@@ -22,8 +22,8 @@ async function work() {
     // await serumMarket.loadAll();
     // console.log(serumMarket.getL2bids())
 
-    serumMarket.getPriceChart("DAY").then(res=>{
-        console.log(res)
+    serumMarket.getPriceChart("WEEK").then(res=>{
+        console.log(res.length)
     })
 }
 work () ;

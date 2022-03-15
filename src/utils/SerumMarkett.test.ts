@@ -40,4 +40,10 @@ describe('serumMarket', ()=>{
                 .length
         ).toBeGreaterThan(0)
     },10000)
+
+    test('get price char', async ()=>{
+        await serumMarket.loadAll();
+        const priceTable = await serumMarket.getPriceChart("DAY")
+        expect(priceTable.length).toBeGreaterThan(0)
+    })
 })
