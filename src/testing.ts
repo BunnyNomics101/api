@@ -14,7 +14,7 @@ const solscanUrl = "https://api.solscan.io/amm/tvl?address=AvVJcsk26dYHXS9Uya2tk
 // })
 
 const serumMarket = new SerumMarket(
-    new PublicKey('A8YFbxQYFVqKZaoYJLLUVcQiWP7G2MeEgW5wsAQgMvFw'),
+    new PublicKey('AvVJcsk26dYHXS9Uya2tkDdSD3i59ubvo1qYKB2w2j5C'),
     new PublicKey('9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin')
 )
 
@@ -22,8 +22,8 @@ async function work() {
     // await serumMarket.loadAll();
     // console.log(serumMarket.getL2bids())
 
-    serumMarket.getPriceChart("WEEK").then(res=>{
-        console.log(res.length)
+    serumMarket.getPriceChart("DAY").then(res=>{
+        console.log(res)
     })
 }
 work () ;
