@@ -8,9 +8,9 @@ const connection = new Connection(SERUM_NET_URL);
 
 class SerumMarket {
 
-    private market: Market
-    private bids: Orderbook
-    private asks: Orderbook
+    private market?: Market
+    private bids?: Orderbook
+    private asks?: Orderbook
 
     constructor(
         private marketAddress: PublicKey,
@@ -41,6 +41,7 @@ class SerumMarket {
     }
 
     async loadMarketData() {
+        if(!this.market) throw Error('market not loaded') ;
         this.bids = await this.market.loadBids(connection);
         this.asks = await this.market.loadAsks(connection);
     }
@@ -51,6 +52,7 @@ class SerumMarket {
     }
 
     public getL2bids() {
+        if(!this.bids) throw Error('bids not loaded')
         const arrayOfBids: { price: number, size: number }[] = [];
         for (let [price, size] of this.bids.getL2(20)) {
             arrayOfBids.push({ price, size })
@@ -59,6 +61,7 @@ class SerumMarket {
     }
 
     public getFullOrderBookData() {
+        if(!this.asks) throw Error('asks not loaded')
         const arrayOfOrders: {
             orderId: any,
             price: number,

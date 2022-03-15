@@ -1,6 +1,6 @@
 import express from 'express'
 import { Express } from "express";
-import chartData from './routes/chartData'
+import chartData from './routes/chart'
 
 const app:Express = express() ; 
 const PORT = process.env.NODE_ENV||3000;
