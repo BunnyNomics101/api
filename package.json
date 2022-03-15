@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
-    "run-test":"ts-node src/test.ts"
+    "run-test": "ts-node src/testing.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "@project-serum/serum": "^0.13.61",
     "@solana/web3.js": "^1.36.0",
     "@types/express": "^4.17.13",
+    "axios": "^0.26.1",
     "express": "^4.17.3"
   }
 }

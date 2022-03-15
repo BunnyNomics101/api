@@ -1,42 +1,41 @@
-import SerumAdapter from './serumAdapter'
+import SerumMarket from './SerumMarket'
 import { PublicKey } from "@solana/web3.js";
 
 
 
-describe('serumAdapter', ()=>{
-    let serumAdapter: SerumAdapter ; 
+describe('serumMarket', ()=>{
+    let serumMarket: SerumMarket ; 
 
     beforeEach(()=>{
         //sol usdc
-        serumAdapter = new SerumAdapter(
-            new PublicKey('9wFFyRfZBsuAha4YcuxcXLKwMxJR43S7fPfQLusDBzvT'),
-            new PublicKey('9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin')
+        serumMarket = new SerumMarket(
+            new PublicKey('A8YFbxQYFVqKZaoYJLLUVcQiWP7G2MeEgW5wsAQgMvFw'), 
         )
     })
 
     test('checks that the object is created',()=>{
-        expect(serumAdapter).not.toBeUndefined;
+        expect(serumMarket).not.toBeUndefined;
     })
 
     test('market loads',async()=>{
-        const market = await serumAdapter.loadMarket();
+        const market = await serumMarket.loadMarket();
         expect(market).not.toBeUndefined();
     },10000)
 
     test('market bids load',async()=>{
 
-        await serumAdapter.loadAll();
+        await serumMarket.loadAll();
         expect(
-            serumAdapter
+            serumMarket
                 .getL2bids()
                 .length
         ).toBeGreaterThan(0)
     },10000)
 
     test('market orders load',async()=>{
-        await serumAdapter.loadAll();
+        await serumMarket.loadAll();
         expect(
-            serumAdapter
+            serumMarket
                 .getL2bids()
                 .length
         ).toBeGreaterThan(0)

@@ -1,33 +1,29 @@
-// import SerumAdapter from "./utils/serumAdapter";
-// import { PublicKey } from "@solana/web3.js";
 
-// const serumAdapter = new SerumAdapter(
-//     new PublicKey('9wFFyRfZBsuAha4YcuxcXLKwMxJR43S7fPfQLusDBzvT'),
-//     new PublicKey('9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin')
-// )
 
-// async function getMarket(){
-//     const market = await serumAdapter.loadMarket();
-//     console.log(market)
-// }
+
 
 // getMarket();
-import { Account, Connection, PublicKey } from '@solana/web3.js';
-import { Market } from '@project-serum/serum';
+import { PublicKey } from "@solana/web3.js";
+import SerumMarket from "./utils/SerumMarket";
+import axios from 'axios'
+//example token
+const solscanUrl = "https://api.solscan.io/amm/tvl?address=AvVJcsk26dYHXS9Uya2tkDdSD3i59ubvo1qYKB2w2j5C&type=30m&time_from=1647255089.415&time_to=1647341489.415"
 
-let connection = new Connection('https://api.mainnet-beta.solana.com');
-let marketAddress = new PublicKey('6oGsL2puUgySccKzn9XA9afqF217LfxP5ocq4B3LWsjy');
-let programAddress = new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin");
+// axios.get(solscanUrl).then(result=>{
+//     console.log(JSON.stringify(result.data))
+// })
 
-(async () => {
-    let market = await Market.load(connection, marketAddress, {}, programAddress);
+const serumMarket = new SerumMarket(
+    new PublicKey('A8YFbxQYFVqKZaoYJLLUVcQiWP7G2MeEgW5wsAQgMvFw'),
+    new PublicKey('9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin')
+)
 
-    // Fetching orderbooks
-    let bids = await market.loadBids(connection);
-    // let asks = await market.loadAsks(connection);
+async function work() {
+    // await serumMarket.loadAll();
+    // console.log(serumMarket.getL2bids())
 
-    // L2 orderbook data
-    for (let [price, size] of bids.getL2(20)) {
-        console.log(price, size);
-    }
-})()
+    serumMarket.getPriceChart("DAY").then(res=>{
+        console.log(res)
+    })
+}
+work () ;
