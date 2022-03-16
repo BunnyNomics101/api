@@ -1,1 +1,1 @@
-GET http://localhost:3000/chart/AvVJcsk26dYHXS9Uya2tkDdSD3i59ubvo1qYKB2w2j5C/YEAR HTTP/1.1
+GET http://localhost:3000/chart/AvVJcsk26dYHXS9Uya2tkDdSD3i59ubvo1qYKB2w2j5C/DAY HTTP/1.1
