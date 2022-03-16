@@ -1,7 +1,7 @@
 import { Account, Connection, PublicKey } from '@solana/web3.js';
 import { Market } from '@project-serum/serum';
 import { Orderbook } from '@project-serum/serum/lib/market';
-import { SERUM_NET_URL, SERUM_DEX_PROGRAM, SOLSCAN_API_URL } from '../config';
+import { SERUM_NET_URL, SERUM_DEX_PROGRAM, SOLSCAN_API_URL, SOLSCAN_API_LATEST } from '../config';
 import axios from 'axios';
 
 const connection = new Connection(SERUM_NET_URL);
@@ -114,6 +114,18 @@ class SerumMarket {
         const urlString = `${SOLSCAN_API_URL}?address=${address}&type=${step}m&time_from=${toUnix(fromDate)}&time_to=${toUnix(new Date())}`
         
         const items =await axios.get(urlString).then(response => response.data.data.items)
+        return items;
+    }
+
+    //get latest price
+    public async getLatestPrice(){
+        const address = this.marketAddress.toBase58()
+        const urlString = `${SOLSCAN_API_LATEST}?address=${address}`
+        
+        const items =await axios.get(urlString).then(response => {
+            console.log(response.data)    
+            return response.data.data
+        })
         return items;
     }
 
