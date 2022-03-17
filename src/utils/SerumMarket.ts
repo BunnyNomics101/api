@@ -11,6 +11,7 @@ class SerumMarket {
     private market?: Market
     private bids?: Orderbook
     private asks?: Orderbook
+    private fills?: any[]
 
     constructor(
         private marketAddress: PublicKey,
@@ -44,6 +45,7 @@ class SerumMarket {
         if(!this.market) throw Error('market not loaded') ;
         this.bids = await this.market.loadBids(connection);
         this.asks = await this.market.loadAsks(connection);
+        this.fills = await this.market.loadFills(connection);
     }
 
     //Getters
@@ -104,7 +106,13 @@ class SerumMarket {
         return arrayOfOrders
     }
 
-    
+    public getFullFills(){
+        if(!this.fills) throw Error('fills not loaded'); 
+        // Retrieving fills
+        for (let fill of this.fills) {
+            console.log(fill.orderId, fill.price, fill.size, fill.side);
+        }
+    }
 
 
     //price TVL part

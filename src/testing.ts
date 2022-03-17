@@ -21,6 +21,6 @@ const serumMarket = new SerumMarket(
 async function work() {
     await serumMarket.loadAll();
     // console.log(serumMarket.getL2bids())  
-    console.log(serumMarket.getFullOrderBookData())  
+    console.log(serumMarket.getLNasks(20))  
 }
 work () ;

@@ -37,7 +37,7 @@ describe('serumMarket', ()=>{
         await serumMarket.loadAll();
         expect(
             serumMarket
-                .getLNasks(20)
+                .getLNasks(20) 
                 .length
         ).toEqual(20)
     },10000)

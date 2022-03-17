@@ -1,6 +1,7 @@
 import express from 'express'
 import { Express } from "express";
 import chartData from './routes/chart'
+import orderbookRoutes from './routes/orderbook'
 import { Server } from 'socket.io';
 import { createServer } from "http";
 import SerumMarket from './utils/SerumMarket';
@@ -32,6 +33,7 @@ function socketMarkets() {
 socketMarkets()
 
 app.use('/chart', chartData)
+app.use('/orderbook', orderbookRoutes)
 
 server.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
