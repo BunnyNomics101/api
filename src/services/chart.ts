@@ -12,7 +12,7 @@ export const getChartData = async(req:Request, res:Response)=>{
 
     try{
         await serumMarket.loadAll();
-        const data= await serumMarket.getPriceChart(timestamp)
+        const data= await serumMarket.getPriceAMM(timestamp)
         res.status(200).send(data)
     }catch{
         res.status(404).send('bad timestamp or market address')

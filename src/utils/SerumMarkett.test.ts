@@ -27,23 +27,33 @@ describe('serumMarket', ()=>{
         await serumMarket.loadAll();
         expect(
             serumMarket
-                .getL2bids()
+                .getLNbids(20)
                 .length
-        ).toBeGreaterThan(0)
+        ).toEqual(20)
+    },10000)
+
+    test('market asks load',async()=>{
+
+        await serumMarket.loadAll();
+        expect(
+            serumMarket
+                .getLNasks(20)
+                .length
+        ).toEqual(20)
     },10000)
 
     test('market orders load',async()=>{
         await serumMarket.loadAll();
         expect(
             serumMarket
-                .getL2bids()
+                .getFullOrderBookData() 
                 .length
         ).toBeGreaterThan(0)
     },10000)
 
     test('get price char', async ()=>{
         await serumMarket.loadAll();
-        const priceTable = await serumMarket.getPriceChart("DAY")
+        const priceTable = await serumMarket.getPriceAMM("DAY")
         expect(priceTable.length).toBeGreaterThan(0)
     })
 })

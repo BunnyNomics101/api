@@ -51,13 +51,23 @@ class SerumMarket {
         return this.market;
     }
 
-    public getL2bids() {
+    public getL20bids() {
         if(!this.bids) throw Error('bids not loaded')
         const arrayOfBids: { price: number, size: number }[] = [];
         for (let [price, size] of this.bids.getL2(20)) {
             arrayOfBids.push({ price, size })
         }
         return arrayOfBids;
+    }
+
+    public getLNbids(nbr: number) {
+        if(!this.bids) throw Error('bids not loaded')
+        const arrayOfBids: { price: number, size: number}[]= []
+        for(let [price,size] of this.bids.getL2(nbr)){
+            arrayOfBids.push({price, size})
+        }
+        
+        return arrayOfBids; 
     }
 
     public getFullOrderBookData() {
@@ -79,9 +89,26 @@ class SerumMarket {
         return arrayOfOrders
     }
 
+    public getLNasks(nbr: number) {
+        if(!this.asks) throw Error('asks not loaded') ; 
+        const arrayOfOrders: {
+            price: number,
+            size: number,
+        }[] = []
+        for(let [price, size,one, two] of this.asks.getL2(nbr)){
+            arrayOfOrders.push({
+                price: price,
+                size: size, // 'buy' or 'sell'
+            })
+        } 
+        return arrayOfOrders
+    }
+
+    
+
 
     //price TVL part
-    public async getPriceChart(from: string, step = 30) {
+    public async getPriceAMM(from: string, step = 30) {
         const toUnix = (date: Date) => date.getTime() / 1000;
         const getFrom = (daysMinus: number) => {
             const now = new Date();
