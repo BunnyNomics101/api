@@ -19,6 +19,19 @@ export async function getAsks(req: Request, res:Response){
     }
 }
 
-export function getBids(req: Request, res:Response){
+export async function getBids(req: Request, res:Response){
+    const marketAddress:string = req.params.address ; 
+    const nbr: number = parseInt(req.params.nbr) ; 
 
+    const serumMarket = new SerumMarket(
+        new PublicKey(marketAddress)
+    )
+
+    try{
+        await serumMarket.loadAll(); 
+        const data = serumMarket.getLNbids(nbr)
+        res.status(200).send(data)
+    }catch{
+        res.status(404).send('bad market')
+    }
 }
