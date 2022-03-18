@@ -97,7 +97,7 @@ class SerumMarket {
             price: number,
             size: number,
         }[] = []
-        for(let [price, size,one, two] of this.asks.getL2(nbr)){
+        for(let [price, size] of this.asks.getL2(nbr)){
             arrayOfOrders.push({
                 price: price,
                 size: size, // 'buy' or 'sell'

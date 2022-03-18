@@ -30,14 +30,13 @@ describe('serumMarket', ()=>{
                 .getLNbids(20)
                 .length
         ).toEqual(20)
-    },10000)
+    },10000) 
 
-    test('market asks load',async()=>{
-
+    test('market asks load',async()=>{ 
         await serumMarket.loadAll();
         expect(
             serumMarket
-                .getLNasks(20) 
+                .getLNasks(20)
                 .length
         ).toEqual(20)
     },10000)
