@@ -8,15 +8,21 @@ import { createServer } from "http";
 import SerumMarket from './utils/SerumMarket';
 import { PublicKey } from '@solana/web3.js';
 import { FILTERED_MARKETS } from './config/markets';
+import socketOrderBook from './socketEmitters/socketOrderBook';
+import socketMarket from './socketEmitters/socketMarket';
 
+//initializing server and socket
 const app: Express = express();
 const PORT = process.env.NODE_ENV || 5000;
 const server = createServer(app)
 export const io = new Server(server)
 
+//cors enabling
 app.use(cors())
+//json in flight
 app.use(express.json())
 
+//socket connection detector
 io.on('connection', (socket) => {
     console.log('a user connected');
 
@@ -25,36 +31,15 @@ io.on('connection', (socket) => {
     });
 });
 
-function socketMarkets() {
-    const solMarket = "9wFFyRfZBsuAha4YcuxcXLKwMxJR43S7fPfQLusDBzvT"
-    const serumMarket = new SerumMarket(new PublicKey(solMarket));
-    setInterval(async () => {
-        const item = await serumMarket.getLatestPrice()
-        io.emit(solMarket, item.price)
-    }, 1800000)
-}
-socketMarkets()
+//socket emitters
+socketMarket(io)
+socketOrderBook(io);
 
-function socketOrderBook() {
-    FILTERED_MARKETS.forEach(({ address }) => {
-        const serumMarket = new SerumMarket(address);
-        serumMarket.loadAll().then(() => {
-            let asks, bids;
-            setInterval(() => {
-                asks = serumMarket.getLNasks(20);
-                bids = serumMarket.getLNbids(20);
-
-                io.emit(`orderbook-${address.toBase58()}`, { bids, asks })
-            }, 150)
-        })
-    })
-}
-
-socketOrderBook();
-
+//routes
 app.use('/chart', chartData)
 app.use('/orderbook', orderbookRoutes)
 
+//listening
 server.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 })

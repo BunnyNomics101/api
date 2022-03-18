@@ -20,7 +20,7 @@ describe('serumMarket', ()=>{
     test('market loads',async()=>{
         const market = await serumMarket.loadMarket();
         expect(market).not.toBeUndefined();
-    },10000)
+    },10000) 
 
     test('market bids load',async()=>{
 
@@ -29,7 +29,7 @@ describe('serumMarket', ()=>{
             serumMarket
                 .getLNbids(20)
                 .length
-        ).toEqual(20)
+        ).toEqual(20) 
     },10000) 
 
     test('market asks load',async()=>{ 
@@ -45,7 +45,7 @@ describe('serumMarket', ()=>{
         await serumMarket.loadAll();
         expect(
             serumMarket
-                .getFullOrderBookData() 
+                .getFullOrderBookData()   
                 .length
         ).toBeGreaterThan(0)
     },10000)
