@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import { Express } from "express";
 import chartData from './routes/chart'
 import orderbookRoutes from './routes/orderbook'
@@ -8,10 +9,11 @@ import SerumMarket from './utils/SerumMarket';
 import { PublicKey } from '@solana/web3.js';
 
 const app: Express = express();
-const PORT = process.env.NODE_ENV || 3000;
+const PORT = process.env.NODE_ENV || 5000;
 const server = createServer(app)
 export const io = new Server(server)
 
+app.use(cors())
 app.use(express.json())
 
 io.on('connection', (socket) => {
