@@ -22,7 +22,7 @@ export default function socketOrderBook(
                 }catch(error){
                     console.log(error)
                 }
-            }, 150)
+            }, 250)
         })
     })
 }
