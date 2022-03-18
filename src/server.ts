@@ -10,12 +10,18 @@ import { PublicKey } from '@solana/web3.js';
 import { FILTERED_MARKETS } from './config/markets';
 import socketOrderBook from './socketEmitters/socketOrderBook';
 import socketMarket from './socketEmitters/socketMarket';
+import { CLIENT_URL } from './config';
 
 //initializing server and socket
 const app: Express = express();
 const PORT = process.env.NODE_ENV || 5000;
 const server = createServer(app)
-export const io = new Server(server)
+export const io = new Server(server,{
+    cors: {
+        origin: CLIENT_URL,
+        methods: ["GET","POST"]
+    }
+})
 
 //cors enabling
 app.use(cors())

@@ -17,7 +17,7 @@ describe('serumMarket', ()=>{
         expect(serumMarket).not.toBeUndefined;
     })
 
-    test('market loads',async()=>{
+    test('market loads',async()=>{ 
         const market = await serumMarket.loadMarket();
         expect(market).not.toBeUndefined();
     },10000) 
