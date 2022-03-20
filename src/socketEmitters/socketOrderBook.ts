@@ -6,7 +6,7 @@ import SerumMarket from "../utils/SerumMarket";
 export default function socketOrderBook(
     io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
 ) {
-    FILTERED_MARKETS.forEach(({ address }) => {
+    FILTERED_MARKETS.forEach(async({ address }) => {
         const serumMarket = new SerumMarket(address);
         serumMarket.loadAll()
         .then(()=>{
@@ -14,15 +14,16 @@ export default function socketOrderBook(
         })
         .then(() => {
             let asks, bids;
-            setInterval(() => {
+            setInterval(async() => {
                 try{
+                    await serumMarket.loadAsksAndBids()
                     asks = serumMarket.getLNasks(20);
                     bids = serumMarket.getLNbids(20);
                     io.emit(`orderbook-${address.toBase58()}`, { bids, asks })
                 }catch(error){
                     console.log(error)
                 }
-            }, 250)
+            }, 10000)
         })
     })
 }

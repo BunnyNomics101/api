@@ -41,6 +41,12 @@ class SerumMarket {
         return market;
     }
 
+    async loadAsksAndBids() {
+        if(!this.market) throw Error('maket not loaded')
+        this.bids = await this.market.loadBids(connection);
+        this.asks = await this.market.loadAsks(connection);
+    }
+
     async loadMarketData() {
         if(!this.market) throw Error('market not loaded') ;
         this.bids = await this.market.loadBids(connection);
