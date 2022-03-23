@@ -1,2 +1,4 @@
 node_modules
 *.env
+app.out.log
+app.err.log
